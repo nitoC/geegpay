@@ -75,6 +75,10 @@
   flex-grow: 0;
   overflow: hidden;
 }
+.sidebar-wrapper {
+  min-height: 100vh;
+  background-color: var(--sidebar-background);
+}
 .nav-top-section {
   display: flex;
   flex-direction: column;
@@ -206,6 +210,7 @@
   align-items: center;
   gap: 20px;
 }
+
 .header-date {
   display: flex;
   padding: 12px 16px;
@@ -502,7 +507,7 @@
   line-height: 26px; /* 144.444% */
 }
 .track {
-  height: 12px;
+  height: 0.75rem;
   width: 100%;
   flex-shrink: 0;
   border-radius: 40px;
@@ -511,7 +516,7 @@
   margin-bottom: 16px;
 }
 .thumb {
-  height: 12px;
+  height: 0.75rem;
   flex-shrink: 0;
   transition: 1s;
   border-radius: 40px;
@@ -803,16 +808,30 @@
   .hamburger {
     display: block;
   }
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+  canvas {
+    width: inherit !important;
+  }
   .header-harmburger-container {
     display: block;
   }
   .header-right {
     display: none;
   }
-  .main-content {
-  }
+
   .chart-container {
-    width: 100%;
+    width: 99% !important;
+    min-width: 2rem;
+    max-width: 53.75rem;
+  }
+  .echart-container {
+    min-width: 2rem;
+    max-width: 53.75rem;
+  }
+  .echart-for-react {
+    width: 99%;
   }
   .transaction-container {
     width: 100%;
@@ -870,8 +889,7 @@
   .Refund {
     background-color: #ed544e12;
   }
-  .table-row-receipt {
-  }
+
   .view-receipt-btn {
     flex-direction: row-reverse;
     width: fit-content;
@@ -879,6 +897,10 @@
   }
   .more-btn {
     display: unset;
+  }
+  .track,
+  .thumb {
+    height: 0.625rem;
   }
 }
 
@@ -888,6 +910,18 @@
   }
   .card-area {
     grid-template-columns: 1fr;
+  }
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background-color: #0d062d44;
+  }
+  .overlay-show {
+    display: block;
+    z-index: 20;
+  }
+  .overlay-hide {
+    display: none;
   }
   .sidebar-wrapper {
     display: block;
@@ -900,7 +934,7 @@
     position: absolute;
     padding: 1rem;
     top: 60%;
-    right: -50px;
+    right: -43px;
     z-index: 3;
     width: 70px;
     height: 70px;
@@ -909,7 +943,6 @@
     justify-content: flex-end;
     align-items: center;
     background-color: var(--sidebar-background);
-    border: 3px solid var(--container-border);
   }
   .sidebar-show {
     left: 0px;
@@ -922,7 +955,6 @@
     transform: scale(3);
     width: 50;
     height: 50;
-    grid-area: "end";
     color: var(--table-primary);
   }
   .sort-text {

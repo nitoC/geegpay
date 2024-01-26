@@ -11,10 +11,11 @@ import User from "../../assets/image/user.png";
 import Thunder from "../../assets/icon/thunder.svg";
 
 const Header = () => {
-  const { sidenav, setSidenav } = useContext(SidnavContext);
+  const { sidenav, setSidenav, setoverlay } = useContext(SidnavContext);
 
-  const handleSidenav = (val: string) => {
+  const handleSidenav = (val: string, overlayVal: string) => {
     setSidenav(val);
+    setoverlay(overlayVal);
   };
 
   return (
@@ -22,7 +23,7 @@ const Header = () => {
       <div className={`sidenav ${sidenav}`}>
         <div className="sidenav-top">
           <button
-            onClick={() => handleSidenav("sidenav-hide")}
+            onClick={() => handleSidenav("sidenav-hide", "overlay-hide")}
             className="header-hamburger"
           >
             <FiX className="hamburger" />

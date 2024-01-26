@@ -13,9 +13,11 @@ import { useState } from "react";
 const Header = () => {
   const { Provider } = SidnavContext;
   const [sidenav, setSidenav] = useState("sidenav-hide");
+  const [overlay, setoverlay] = useState("overlay-hide");
 
-  const handleSidenav = (val: string) => {
+  const handleSidenav = (val: string, overlayVal: string) => {
     setSidenav(val);
+    setoverlay(overlayVal);
   };
 
   return (
@@ -58,14 +60,18 @@ const Header = () => {
         </div>
         <div className="header-harmburger-container">
           <button
-            onClick={() => handleSidenav("sidenav-show")}
+            onClick={() => handleSidenav("sidenav-show", "overlay-show")}
             className="header-hamburger"
           >
             <FiAlignRight className="hamburger" />
           </button>
         </div>
       </div>
-      <Provider value={{ sidenav, setSidenav }}>
+      <Provider value={{ sidenav, setSidenav, setoverlay }}>
+        <div
+          onClick={() => handleSidenav("sidenav-hide", "overlay-hide")}
+          className={`overlay ${overlay}`}
+        ></div>
         <Sidenav />
       </Provider>
     </div>

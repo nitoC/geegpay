@@ -58,6 +58,7 @@ const Chart = () => {
     },
     responsive: true,
     grid: { top: 20, right: 8, bottom: 24, left: 50 },
+    renderer: "svg",
     xAxis: {
       axisLine: {
         show: false,
@@ -159,7 +160,7 @@ const Chart = () => {
           </div>
         </div>
       </div>
-      <div style={{ width: "100%" }} className="echart-container">
+      <div className="echart-container">
         <ReactECharts option={options} />
       </div>
     </div>
