@@ -59,6 +59,7 @@
   --container-border: #3c3c3c;
   background-color: var(--body);
 }
+
 /* Side bar styles*/
 /* Side bar styles*/
 /* Side bar styles*/
@@ -140,6 +141,7 @@
 }
 .main-body {
   flex-grow: 1;
+  overflow-x: hidden;
 }
 
 .header {
