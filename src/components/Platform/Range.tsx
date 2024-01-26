@@ -11,13 +11,13 @@ const Range: FC<IRangeData> = ({ data, classVal }) => {
   const [trackWidth, setTrackWidth] = useState<number>(0);
 
   useEffect(() => {
-    const rangeHandler = (value: number, title: string, total: number) => {
+    const rangeHandler = (value: number, total: number) => {
       if (Ref && Ref.current && Ref.current) {
         const result: number = Ref.current?.offsetWidth * (value / total);
         setTrackWidth(result);
       }
     };
-    rangeHandler(value, title, total);
+    rangeHandler(value, total);
   }, [title, total, value]);
 
   return (
