@@ -4,6 +4,19 @@ This template provides a minimal setup to get React working in Vite with HMR and
 
 Currently, two official plugins are available:
 
+## Getting Started
+
+To get started with the completed challenge, follow these steps:
+
+1. Clone this repository to your local machine.
+2. install typescript globally / locally.
+3. Install the required dependencies using `npm install` or `yarn install`.
+4. Configure the necessary environment variables in a `.env` file. Make sure to include the required API keys for OpenAI.
+5. Run the application using `npm start` or `yarn start`.
+6. Access the application in your web browser at the provided URL.
+7. In your browser visit http://localhost:5173
+8. login using the credentials below.
+
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
