@@ -925,6 +925,8 @@
   .overlay-hide {
     display: none;
   }
+  .sidebar {
+  }
   .sidebar-wrapper {
     display: block;
     position: fixed;
@@ -954,7 +956,7 @@
   }
   .left,
   .right {
-    transform: scale(3);
+    transform: scale(2);
     width: 50;
     height: 50;
     color: var(--table-primary);
