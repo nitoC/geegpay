@@ -1,13 +1,19 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Marcus from "../../assets/image/marcus.png";
 import Jaydon from "../../assets/image/jaydon.png";
 import Corey from "../../assets/image/corey.png";
 import Cooper from "../../assets/image/cooper.png";
 import Philip from "../../assets/image/philip.png";
 import Document from "../../assets/icon/document-download.svg";
+import { FiMoreVertical } from "react-icons/fi";
 import { v4 as uuidv4 } from "uuid";
 
 const Card: FC = () => {
+  const [data, setData] = useState<{ height: string; id: null | number }>({
+    height: "table-hide",
+    id: null,
+  });
+
   const userTransactions = [
     {
       Name: "Marcus Bergson",
@@ -45,6 +51,25 @@ const Card: FC = () => {
       Image: Philip,
     },
   ];
+
+  const handleHeight = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLDivElement;
+    const minHeight = "table-hide";
+    const maxHeight = "table-show";
+    const dataId = parseInt(target.dataset.id as string);
+    if (data.id === dataId && data.height === maxHeight) {
+      console.log(data.id, "he1");
+
+      return setData({ id: dataId, height: minHeight });
+    }
+    if (data.id === dataId && data.height === minHeight) {
+      console.log(target, "he2");
+      return setData({ id: dataId, height: maxHeight });
+    }
+    console.log(target.dataset.id, "he3");
+    return setData({ id: dataId, height: maxHeight });
+  };
+
   return (
     <div>
       <div className="transaction-container">
@@ -68,21 +93,42 @@ const Card: FC = () => {
               <div className="table-header">Invoice</div>
             </div>
             <div className="table-body">
-              {userTransactions.map((item) => (
-                <div key={uuidv4()} className="table-data">
-                  <div className="table-row-name">
-                    <span>
-                      <img
-                        src={item.Image}
-                        className="table-avatar"
-                        alt="transaction avatar"
-                      />
+              {userTransactions.map((item, key) => (
+                <div
+                  key={uuidv4()}
+                  className={`table-data ${
+                    data.id === key ? data.height : "table-hide"
+                  }`}
+                >
+                  <div className="table-user-container">
+                    <div className="table-row-name">
+                      <span>
+                        <img
+                          src={item.Image}
+                          className="table-avatar"
+                          alt="transaction avatar"
+                        />
+                      </span>
+                      <span className="table-row-name-text">{item.Name}</span>
+                    </div>
+                    <span className="moreVerti-container">
+                      <button
+                        onClick={(e) => handleHeight(e)}
+                        data-id={key}
+                        className="more-btn"
+                      >
+                        <FiMoreVertical
+                          style={{ pointerEvents: "none" }}
+                          className="more-icon"
+                        />
+                      </button>
                     </span>
-                    <span className="table-row-name-text">{item.Name}</span>
                   </div>
                   <div className="table-row-date">{item.Date}</div>
                   <div className="table-row-amount">{item.Amount}</div>
-                  <div className={`table-row-status ${item.Status}`}>
+                  <div
+                    className={`table-row-status ${item.Status} ${item.Status}`}
+                  >
                     {item.Status}
                   </div>
                   <div className="table-row-receipt">

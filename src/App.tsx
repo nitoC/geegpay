@@ -8,18 +8,27 @@ import Table from "./components/Transactions/Table";
 
 import { MyContext } from "./context/ThemeContext";
 
+import { FiChevronsRight } from "react-icons/fi";
+import { FiChevronsLeft } from "react-icons/fi";
+
 import { ICard } from "./interfaces/interfaces";
 import coin from "./assets/icon/coin.svg";
 import cart from "./assets/icon/shopping-cart.svg";
 import boxTick from "./assets/icon/box-tick.svg";
 import rotate from "./assets/icon/3d-rotate.svg";
 import { v4 as uuidv4 } from "uuid";
-import Chart from "./assets/Chart";
+import Chart from "./components/Chart/Chart";
 import { useState } from "react";
 
 function App() {
   const { Provider } = MyContext;
-  const [theme, setTheme] = useState<string>("light-mode");
+  const [toggleSidebar, setToggleSidebar] = useState("sidebar-hide");
+
+  const [theme, setTheme] = useState<string>(
+    localStorage.getItem("theme")
+      ? (localStorage.getItem("theme") as string)
+      : "light-mode"
+  );
   const cards: ICard[] = [
     {
       icon: boxTick,
@@ -52,12 +61,29 @@ function App() {
       profit: "23.5%",
     },
   ];
+
+  const handleSidebarToggle = () => {
+    if (toggleSidebar === "sidebar-show") {
+      setToggleSidebar("sidebar-hide");
+    } else {
+      setToggleSidebar("sidebar-show");
+    }
+  };
   return (
     <>
       <div className={theme}>
         <main className="main">
           <Provider value={{ theme, setTheme }}>
-            <Sidbar />
+            <div className={`sidebar-wrapper ${toggleSidebar}`}>
+              <Sidbar />
+              <button onClick={handleSidebarToggle} className="toggle-sidebar">
+                {toggleSidebar === "sidebar-hide" ? (
+                  <FiChevronsRight className="right" />
+                ) : (
+                  <FiChevronsLeft className="left" />
+                )}
+              </button>
+            </div>
           </Provider>
           <div className="main-body">
             <Header />

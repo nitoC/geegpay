@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import Bull from "../../assets/icon/trending-up.svg";
 import Bear from "../../assets/icon/trending-down.svg";
 import BullTrend from "../../assets/image/bull.png";
@@ -11,7 +11,6 @@ interface IDetails {
 
 const Card: FC<IDetails> = ({ details }) => {
   const { type, icon, profit, value, heading } = details;
-  console.log(type === "bull");
   return (
     <div className="card">
       <div className="card-top">
@@ -57,4 +56,5 @@ const Card: FC<IDetails> = ({ details }) => {
   );
 };
 
-export default Card;
+const CardComponent = memo(Card);
+export default CardComponent;

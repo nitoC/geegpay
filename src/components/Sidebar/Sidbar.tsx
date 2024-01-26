@@ -29,10 +29,22 @@ interface NavItem {
 const Sidebar: FC = () => {
   const { setTheme } = useContext(MyContext);
   const [activeNav, setActiveNav] = useState("Blocks" + 0);
-  const [state, setState] = useState({
-    light: true,
-    dark: false,
-  });
+  const [state, setState] = useState(
+    localStorage.getItem("theme")
+      ? localStorage.getItem("theme") === "dark-mode"
+        ? {
+            light: false,
+            dark: true,
+          }
+        : {
+            light: true,
+            dark: false,
+          }
+      : {
+          light: true,
+          dark: false,
+        }
+  );
 
   enum colorTheme {
     "light-mode",
@@ -52,11 +64,8 @@ const Sidebar: FC = () => {
     setActiveNav(target.dataset.itemid as string);
   };
   const handleTheme = (value: string, btn: string) => {
-    // if (localStorage.getItem("theme") === null) localStorage.setItem("theme", theme)
-    // else {
-    //   setTheme(localStorage.getItem("theme"));
-    //       }
-
+    console.log(localStorage.getItem("theme"), "theme");
+    localStorage.setItem("theme", value);
     setTheme(value);
     handleThemeBtn(btn);
   };

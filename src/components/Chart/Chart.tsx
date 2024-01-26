@@ -1,7 +1,11 @@
 import ReactECharts from "echarts-for-react";
-import ArrowDown from "../assets/icon/Arrow - Down 2.svg";
+import ArrowDown from "../../assets/icon/Arrow - Down 2.svg";
+import ChartOptions from "../Modals/ChartOptions";
+import { useState } from "react";
 
 const Chart = () => {
+  const [optionsDisplay, setOptionsDisplay] = useState("none");
+  const [valueData, setvalueData] = useState("Weekly");
   const data = [
     14.1167, 25.0, 8.3333, 33.5417, 16.875, 45.0, 16.875, 27.2917, 37.9167,
     10.625, 35.625, 31.4583,
@@ -37,9 +41,9 @@ const Chart = () => {
         );
       },
       extraCssText: `
-       border:none;
-         min-width: 80px;
-         min-height: 31.977px;
+      border:none;
+      min-width: 80px;
+      min-height: 31.977px;
       `,
       backgroundColor: "#090C2C",
       padding: [5, 14, 5, 14],
@@ -52,6 +56,7 @@ const Chart = () => {
         lineHeight: "normal",
       },
     },
+    responsive: true,
     grid: { top: 20, right: 8, bottom: 24, left: 50 },
     xAxis: {
       axisLine: {
@@ -124,21 +129,39 @@ const Chart = () => {
     ],
   };
 
+  const handleOptions = (data?: string) => {
+    if (data) {
+      return setOptionsDisplay(data);
+    }
+    if (optionsDisplay === "none") {
+      return setOptionsDisplay("unset");
+    }
+    return setOptionsDisplay("none");
+  };
+
   return (
     <div className="chart-container">
       <div className="chart-header">
         <h2 className="chart-heading">Sales Trends</h2>
         <div className="sort-container">
           <p className="sort-text">Sort by:</p>
-          <button className="options">
-            <span className="option-text">Weekly</span>
+          <button onClick={() => handleOptions()} className="options">
+            <span className="option-text">{valueData}</span>
             <span className="option-icon-container">
               <img src={ArrowDown} className="option-icon" alt="option" />
             </span>
           </button>
+          <div className="chart-options" style={{ display: optionsDisplay }}>
+            <ChartOptions
+              handleOptionValue={(data: string) => setvalueData(data)}
+              handleOptionDisplay={handleOptions}
+            />
+          </div>
         </div>
       </div>
-      <ReactECharts option={options} />
+      <div style={{ width: "100%" }} className="echart-container">
+        <ReactECharts option={options} />
+      </div>
     </div>
   );
 };

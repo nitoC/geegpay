@@ -1,18 +1,17 @@
-import Searchbar from "./Searchbar";
+import Searchbar from "../Header/Searchbar";
 
+import { useContext } from "react";
 import { SidnavContext } from "../../context/SidenavContext";
-import { FiAlignRight } from "react-icons/fi";
+import { FiX } from "react-icons/fi";
 import Calender from "../../assets/icon/calender.svg";
 import Bell from "../../assets/icon/bell.svg";
 import currentDate from "../../helper/FormatDate";
 import ArrowDown from "../../assets/icon/Arrow - Down 2.svg";
 import User from "../../assets/image/user.png";
-import Sidenav from "../Sidenav/Sidenav";
-import { useState } from "react";
+import Thunder from "../../assets/icon/thunder.svg";
 
 const Header = () => {
-  const { Provider } = SidnavContext;
-  const [sidenav, setSidenav] = useState("sidenav-hide");
+  const { sidenav, setSidenav } = useContext(SidnavContext);
 
   const handleSidenav = (val: string) => {
     setSidenav(val);
@@ -20,22 +19,21 @@ const Header = () => {
 
   return (
     <div>
-      <div className="header">
-        <div className="header-left">
+      <div className={`sidenav ${sidenav}`}>
+        <div className="sidenav-top">
+          <button
+            onClick={() => handleSidenav("sidenav-hide")}
+            className="header-hamburger"
+          >
+            <FiX className="hamburger" />
+          </button>
           <div className="logo">
             <a href="/" className="logo-text">
-              Dashboard
+              <img src={Thunder} alt="logo" />
             </a>
           </div>
-          <Searchbar />
         </div>
-        <div className="header-right">
-          <div className="header-date">
-            <div className="date-icon-container">
-              <img src={Calender} alt="date icon" className="date-icon" />
-            </div>
-            <div className="date-container">{currentDate()}</div>
-          </div>
+        <div className="sidenav-middle">
           <div className="header-notification">
             <div className="notification-icon-container">
               <button className="header-notification-btn">
@@ -43,6 +41,16 @@ const Header = () => {
               </button>
             </div>
           </div>
+          <Searchbar />
+        </div>
+        <div className="sidenav-bottom">
+          <div className="header-date">
+            <div className="date-icon-container">
+              <img src={Calender} alt="date icon" className="date-icon" />
+            </div>
+            <div className="date-container">{currentDate()}</div>
+          </div>
+
           <div className="header-user">
             <div className="header-user-avatar-container">
               <img src={User} alt="" className="header-avatar" />
@@ -56,18 +64,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div className="header-harmburger-container">
-          <button
-            onClick={() => handleSidenav("sidenav-show")}
-            className="header-hamburger"
-          >
-            <FiAlignRight className="hamburger" />
-          </button>
-        </div>
       </div>
-      <Provider value={{ sidenav, setSidenav }}>
-        <Sidenav />
-      </Provider>
     </div>
   );
 };

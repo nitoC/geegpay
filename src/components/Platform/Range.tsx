@@ -1,11 +1,10 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, memo, useEffect, useRef, useState } from "react";
 import { IRange } from "../../interfaces/interfaces";
 
 interface IRangeData {
   data: IRange;
   classVal: string;
 }
-
 const Range: FC<IRangeData> = ({ data, classVal }) => {
   const { title, value, total } = data;
   const Ref = useRef(null as HTMLDivElement | null);
@@ -15,8 +14,6 @@ const Range: FC<IRangeData> = ({ data, classVal }) => {
     const rangeHandler = (value: number, title: string, total: number) => {
       if (Ref && Ref.current && Ref.current) {
         const result: number = Ref.current?.offsetWidth * (value / total);
-        console.log(result);
-        console.log(title);
         setTrackWidth(result);
       }
     };
@@ -32,4 +29,5 @@ const Range: FC<IRangeData> = ({ data, classVal }) => {
   );
 };
 
-export default Range;
+const RangeComponent = memo(Range);
+export default RangeComponent;
