@@ -310,7 +310,7 @@
   transition: 0.5s;
 }
 .sidenav-show {
-  transform: translateX(0px);
+  right: 0px;
 }
 .sidenav-hide {
   right: -700px;
