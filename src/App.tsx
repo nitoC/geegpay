@@ -18,11 +18,13 @@ import boxTick from "./assets/icon/box-tick.svg";
 import rotate from "./assets/icon/3d-rotate.svg";
 import { v4 as uuidv4 } from "uuid";
 import Chart from "./components/Chart/Chart";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Loader from "./components/Modals/Loader";
 
 function App() {
   const { Provider } = MyContext;
   const [toggleSidebar, setToggleSidebar] = useState("sidebar-hide");
+  const [loader, setloader] = useState("page-loader");
 
   const [theme, setTheme] = useState<string>(
     localStorage.getItem("theme")
@@ -69,6 +71,22 @@ function App() {
       setToggleSidebar("sidebar-show");
     }
   };
+  useEffect(() => {
+    if (document.readyState === "complete") {
+      setTimeout(() => setloader("no-page-loader"), 2000);
+    } else {
+      window.addEventListener("load", () => {
+        console.log("loaded");
+        setTimeout(() => setloader("no-page-loader"), 2000);
+      });
+
+      return () =>
+        window.addEventListener("load", () => {
+          console.log("loaded");
+          setTimeout(() => setloader("no-page-loader"), 2000);
+        });
+    }
+  }, []);
   return (
     <>
       <div className={theme}>
@@ -109,6 +127,9 @@ function App() {
             </div>
           </div>
         </main>
+      </div>
+      <div className={loader}>
+        <Loader />
       </div>
     </>
   );
