@@ -361,6 +361,9 @@
   justify-content: end;
   gap: 10px;
 }
+.profile-link span {
+  cursor: default;
+}
 .profile-link:hover {
   padding: 1rem 2rem;
   color: var(--background-solid);
