@@ -1,5 +1,6 @@
 import ReactECharts from "echarts-for-react";
 import ArrowDown from "../../assets/icon/Arrow - Down 2.svg";
+import ArrowLight from "../../assets/icon/arrowdownlight.svg";
 import ChartOptions from "../Modals/ChartOptions";
 import { useState } from "react";
 
@@ -149,7 +150,15 @@ const Chart = () => {
           <button onClick={() => handleOptions()} className="options">
             <span className="option-text">{valueData}</span>
             <span className="option-icon-container">
-              <img src={ArrowDown} className="option-icon" alt="option" />
+              <img
+                src={
+                  localStorage.getItem("theme") == "light-mode"
+                    ? ArrowDown
+                    : ArrowLight
+                }
+                className="option-icon"
+                alt="option"
+              />
             </span>
           </button>
           <div className="chart-options" style={{ display: optionsDisplay }}>
