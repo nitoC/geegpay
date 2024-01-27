@@ -1,5 +1,7 @@
 import Searchbar from "./Searchbar";
 
+import Bellslight from "../../assets/icon/belllight.svg";
+import Calenderlight from "../../assets/icon/calenderlight.svg";
 import { SidnavContext } from "../../context/SidenavContext";
 import { FiAlignRight } from "react-icons/fi";
 import Calender from "../../assets/icon/calender.svg";
@@ -9,15 +11,38 @@ import ArrowDown from "../../assets/icon/Arrow - Down 2.svg";
 import User from "../../assets/image/user.png";
 import Sidenav from "../Sidenav/Sidenav";
 import { useState } from "react";
+import Profile from "../Modals/Profile";
+import Notifications from "../Modals/Notifications";
 
 const Header = () => {
   const { Provider } = SidnavContext;
   const [sidenav, setSidenav] = useState("sidenav-hide");
   const [overlay, setoverlay] = useState("overlay-hide");
+  const [profileClass, setprofileClass] = useState("profile-hide");
+  const [notificationToggle, setnotificationToggle] =
+    useState("notification-hide");
+  const BellIcon =
+    localStorage.getItem("theme") == "light-mode" ? Bell : Bellslight;
+  const CalenderIcon =
+    localStorage.getItem("theme") == "light-mode" ? Calender : Calenderlight;
 
   const handleSidenav = (val: string, overlayVal: string) => {
     setSidenav(val);
     setoverlay(overlayVal);
+  };
+  const handleProfile = () => {
+    if (profileClass == "profile-hide") {
+      setprofileClass("profile-show");
+      return;
+    }
+    setprofileClass("profile-hide");
+  };
+  const handleNotification = () => {
+    if (notificationToggle == "notification-hide") {
+      setnotificationToggle("notification-show");
+      return;
+    }
+    setnotificationToggle("notification-hide");
   };
 
   return (
@@ -34,18 +59,25 @@ const Header = () => {
         <div className="header-right">
           <div className="header-date">
             <div className="date-icon-container">
-              <img src={Calender} alt="date icon" className="date-icon" />
+              <img src={CalenderIcon} alt="date icon" className="date-icon" />
             </div>
             <div className="date-container">{currentDate()}</div>
           </div>
-          <div className="header-notification">
+          <div onClick={handleNotification} className="header-notification">
             <div className="notification-icon-container">
               <button className="header-notification-btn">
-                <img src={Bell} alt="notification icon" className="date-icon" />
+                <img
+                  src={BellIcon}
+                  alt="notification icon"
+                  className="date-icon"
+                />
               </button>
             </div>
+            <div className={notificationToggle}>
+              <Notifications />
+            </div>
           </div>
-          <div className="header-user">
+          <div onClick={handleProfile} className="header-user">
             <div className="header-user-avatar-container">
               <img src={User} alt="" className="header-avatar" />
             </div>
@@ -56,6 +88,9 @@ const Header = () => {
             <div className="header-user-icon-container">
               <img src={ArrowDown} alt="" className="header-icon" />
             </div>
+          </div>
+          <div className={profileClass}>
+            <Profile />
           </div>
         </div>
         <div className="header-harmburger-container">

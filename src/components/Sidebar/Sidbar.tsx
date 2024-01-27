@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 import { useContext } from "react";
 import { MyContext } from "../../context/ThemeContext";
 
+import Blockslight from "../../assets/icon/blockslight.svg";
+
 import Thunder from "../../assets/icon/thunder.svg";
 import Blocks from "../../assets/icon/blocks.svg";
 import Trend from "../../assets/icon/brokentrend.svg";
@@ -70,7 +72,12 @@ const Sidebar: FC = () => {
     handleThemeBtn(btn);
   };
   const navItems: NavItem[] = [
-    { icon: Blocks, alt: "Blocks", activate: handleActiveBtn },
+    {
+      icon:
+        localStorage.getItem("theme") == "light-mode" ? Blocks : Blockslight,
+      alt: "Blocks",
+      activate: handleActiveBtn,
+    },
     { icon: Trend, alt: "Trend", activate: handleActiveBtn },
     { icon: Team, alt: "Team", activate: handleActiveBtn },
     { icon: Box, alt: "Box", activate: handleActiveBtn },
