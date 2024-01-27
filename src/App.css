@@ -412,8 +412,7 @@
   transform: scale(2);
   display: none;
 }
-.table-user-container {
-}
+
 .header-harmburger-container {
   display: none;
 }
@@ -779,8 +778,7 @@
   width: 100vw;
   height: 100vh;
 }
-.transaction-wrapper {
-}
+
 .transaction-hide {
   display: none;
 }
@@ -832,8 +830,7 @@
 .transaction-row-status {
   padding: 0.5rem 1rem;
 }
-.back-btn {
-}
+
 .transaction-row-name-text {
   color: var(--transaction-primary);
   font-size: 1rem;

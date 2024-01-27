@@ -27,6 +27,9 @@ const Card: FC = () => {
   const handleTransaction = (data: Iitem) => {
     if (toggleView == "transaction-hide") {
       console.log(data);
+      setOverlay("table-overlay-hide");
+      settableData(userTransactions);
+      settableClass("table-block");
       settoggleView("transaction-show");
       setdataItem(data);
       return;
