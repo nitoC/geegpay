@@ -2,18 +2,32 @@ import ReactECharts from "echarts-for-react";
 import ArrowDown from "../../assets/icon/Arrow - Down 2.svg";
 import ArrowLight from "../../assets/icon/arrowdownlight.svg";
 import ChartOptions from "../Modals/ChartOptions";
+import {
+  year,
+  data1,
+  data2,
+  data3,
+  data4,
+  day,
+  day2,
+  month,
+} from "../../mockData/chart";
 import { useState } from "react";
 
 const Chart = () => {
+  const daily = { x: day, y: data2 };
+  const weekly = { x: day2, y: data4 };
+  const yearly = { x: year, y: data3 };
+  const monthly = { x: month, y: data1 };
   const [optionsDisplay, setOptionsDisplay] = useState("none");
-  const [valueData, setvalueData] = useState("Weekly");
-  const data = [
-    14.1167, 25.0, 8.3333, 33.5417, 16.875, 45.0, 16.875, 27.2917, 37.9167,
-    10.625, 35.625, 31.4583,
-  ];
+  const [valueData, setvalueData] = useState("Monthly");
 
+  const [stateVal, setstateVal] = useState({
+    x: month,
+    y: data1,
+  });
   // Find the index of the highest value
-  const indexOfMaxValue = data.indexOf(Math.max(...data));
+  const indexOfMaxValue = stateVal.y.indexOf(Math.max(...stateVal.y));
   const yLabel = [
     0,
     (5.0).toFixed(3),
@@ -65,20 +79,7 @@ const Chart = () => {
         show: false,
         // ...
       },
-      data: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      data: stateVal.x,
       axisTick: {
         alignWithLabel: true,
       },
@@ -103,7 +104,7 @@ const Chart = () => {
     },
     series: [
       {
-        data: data.map((value, index) => ({
+        data: stateVal.y.map((value, index) => ({
           value: value,
           itemStyle: {
             // Apply different styles for the highest value and others
@@ -133,12 +134,24 @@ const Chart = () => {
 
   const handleOptions = (data?: string) => {
     if (data) {
-      return setOptionsDisplay(data);
+      setOptionsDisplay(data);
+      return;
     }
     if (optionsDisplay === "none") {
       return setOptionsDisplay("unset");
     }
     return setOptionsDisplay("none");
+  };
+
+  const handleOptionValue = (data: string) => {
+    data === "Weekly"
+      ? setstateVal(weekly)
+      : data === "Yearly"
+      ? setstateVal(yearly)
+      : data === "Daily"
+      ? setstateVal(daily)
+      : setstateVal(monthly);
+    setvalueData(data);
   };
 
   return (
@@ -163,7 +176,7 @@ const Chart = () => {
           </button>
           <div className="chart-options" style={{ display: optionsDisplay }}>
             <ChartOptions
-              handleOptionValue={(data: string) => setvalueData(data)}
+              handleOptionValue={handleOptionValue}
               handleOptionDisplay={handleOptions}
             />
           </div>

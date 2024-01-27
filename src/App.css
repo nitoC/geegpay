@@ -352,6 +352,7 @@
   position: absolute;
   bottom: -150px;
   right: 250px;
+  width: 28rem;
   background-color: var(--background-solid);
   border: 1px solid var(--container-border);
   border-radius: 4px;
