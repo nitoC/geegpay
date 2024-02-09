@@ -286,6 +286,13 @@
   width: 21.8125rem;
   overflow: hidden;
 }
+.searchbar:active,
+.searchbar:focus {
+  border: 2px solid skyblue;
+}
+.searchbar-focused {
+  border: 2px solid skyblue;
+}
 .searchbar-input {
   border: none;
   outline: none;
