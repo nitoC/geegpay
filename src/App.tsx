@@ -2,7 +2,7 @@
 import "./App.css";
 import Card from "./components/Card/Card";
 import Platform from "./components/Platform/Card";
-import Header from "./components/Header/Header";
+import Header, { searchRef } from "./components/Header/Header";
 import Sidbar from "./components/Sidebar/Sidbar";
 import Table from "./components/Transactions/Table";
 
@@ -18,11 +18,12 @@ import boxTick from "./assets/icon/box-tick.svg";
 import rotate from "./assets/icon/3d-rotate.svg";
 import { v4 as uuidv4 } from "uuid";
 import Chart from "./components/Chart/Chart";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Loader from "./components/Modals/Loader";
 
 function App() {
   const { Provider } = MyContext;
+  const ref = useRef<searchRef>(null);
   const [toggleSidebar, setToggleSidebar] = useState("sidebar-hide");
   const [loader, setloader] = useState("page-loader");
 
@@ -71,6 +72,12 @@ function App() {
       setToggleSidebar("sidebar-show");
     }
   };
+
+  const handleChildren = () => {
+    ref.current?.toggleNotification();
+    ref.current?.toggleAccount();
+  };
+
   useEffect(() => {
     if (document.readyState === "complete") {
       setTimeout(() => setloader("no-page-loader"), 2000);
@@ -89,7 +96,7 @@ function App() {
   }, []);
   return (
     <>
-      <div className={theme}>
+      <div onClick={handleChildren} className={theme}>
         <main className="main">
           <Provider value={{ theme, setTheme }}>
             <div className={`sidebar-wrapper ${toggleSidebar}`}>
@@ -104,7 +111,7 @@ function App() {
             </div>
           </Provider>
           <div className="main-body">
-            <Header />
+            <Header ref={ref} />
             <div className="main-content">
               <div className="main-left">
                 <Chart />

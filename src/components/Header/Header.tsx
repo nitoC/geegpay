@@ -10,11 +10,18 @@ import currentDate from "../../helper/FormatDate";
 import ArrowDown from "../../assets/icon/Arrow - Down 2.svg";
 import User from "../../assets/image/user.png";
 import Sidenav from "../Sidenav/Sidenav";
-import { useState } from "react";
+import { useState, useImperativeHandle, forwardRef, Ref } from "react";
 import Profile from "../Modals/Profile";
 import Notifications from "../Modals/Notifications";
 
-const Header = () => {
+interface searchProps {}
+
+export type searchRef = {
+  toggleAccount: () => void;
+  toggleNotification: () => void;
+};
+
+const Header = (props: searchProps, ref: Ref<searchRef>) => {
   const { Provider } = SidnavContext;
   const [sidenav, setSidenav] = useState("sidenav-hide");
   const [overlay, setoverlay] = useState("overlay-hide");
@@ -31,6 +38,8 @@ const Header = () => {
     setoverlay(overlayVal);
   };
   const handleProfile = () => {
+    console.log("wow");
+    console.log(profileClass);
     if (profileClass == "profile-hide") {
       setprofileClass("profile-show");
       return;
@@ -44,6 +53,24 @@ const Header = () => {
     }
     setnotificationToggle("notification-hide");
   };
+
+  useImperativeHandle(ref, () => {
+    return {
+      toggleNotification: () => {
+        console.log("he world");
+        if (notificationToggle == "notification-show") {
+          setnotificationToggle("notification-hide");
+        }
+        return;
+      },
+      toggleAccount: () => {
+        if (profileClass == "profile-show") {
+          setprofileClass("profile-hide");
+        }
+        return;
+      },
+    };
+  });
 
   return (
     <div>
@@ -113,6 +140,6 @@ const Header = () => {
   );
 };
 
-export default Header;
+const forwardReference = forwardRef(Header);
 
-
+export default forwardReference;
