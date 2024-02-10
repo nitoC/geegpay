@@ -15,7 +15,6 @@ import Profile from "../Modals/Profile";
 import Notifications from "../Modals/Notifications";
 
 interface searchProps {}
-
 export type searchRef = {
   toggleAccount: () => void;
   toggleNotification: () => void;
@@ -59,6 +58,8 @@ const Header = (props: searchProps, ref: Ref<searchRef>) => {
       toggleNotification: () => {
         console.log("he world");
         if (notificationToggle == "notification-show") {
+          props = { ...props, notificationCount: 0 };
+          localStorage.setItem("notifications", JSON.stringify([]));
           setnotificationToggle("notification-hide");
         }
         return;
